@@ -94,11 +94,12 @@ public class ParanoidSenseManager {
         public void onAuthenticated(int faceId, int userId, byte[] token) {
             mHandler.post(() -> {
                 Face face = new Face("", faceId, SENSE_ID);
+                final boolean authenticated = faceId != 0;
                 ArrayList<Byte> token_AL = new ArrayList<>(token.length);
                 for (byte b : token) {
                     token_AL.add(new Byte(b));
                 }
-                mFaceService.handleAuthenticated(face, token_AL);
+                mFaceService.handleAuthenticated(authenticated, face, token_AL);
             });
         }
 
